@@ -1,0 +1,23 @@
+{
+  "name": "galdr",
+  "version": "1.0.0",
+  "description": "experiments in magick with svg",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/breedx2/galdr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/breedx2/galdr/issues"
+  },
+  "homepage": "https://github.com/breedx2/galdr#readme",
+  "dependencies": {
+    "@svgdotjs/svg.js": "^3.0.16",
+    "lodash": "^4.17.15"
+  }
+}
