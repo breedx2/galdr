@@ -4,8 +4,8 @@ const _ = require('lodash');
 
 const DEFAULT_MIN_NODES = 2;
 const DEFAULT_MAX_NODES = 10;
-const DEFAULT_MIN_LINKS = 1;
-const DEFAULT_MAX_LINKS = 3;
+const DEFAULT_MIN_LINKS = 2;
+const DEFAULT_MAX_LINKS = 5;
 const DEFAULT_ALLOW_SELF = true;
 
 //TODO:
@@ -26,10 +26,10 @@ function createNodes(options) {
   const initialNodes = _.range(0, numNodes).map(i => makeTempNode(i, options));
   const nodes = initialNodes.map(node => {
     const minLinks = options.minLinks || DEFAULT_MIN_LINKS;
-    const maxLinks = options.maxLinks || DEFAULT_MAX_LINKS;
+    const maxLinks = Math.min(numNodes-1, options.maxLinks || DEFAULT_MAX_LINKS);
     const numLinks = _.random(minLinks, maxLinks);
     const ranges = makeRanges(numLinks);
-    const shuffledNodes = _.shuffle([...initialNodes]);
+    const shuffledNodes = _.shuffle([...initialNodes]); //spread clones here
     const links = ranges.map(r => new MarkovLink(r[0], r[1], shuffledNodes.pop()));
     links.forEach(link => {
       node.addLink(link);
@@ -57,8 +57,9 @@ function makeRanges(num) {
 
 function makeTempNode(i, options) {
   //TODO: Pick from a real library of actions
-  const action = () => {
+  const action = (context) => {
     console.log(`Action ${i} exec`);
+    return { last: i };
   };
   return new MarkovNode(action);
 }
@@ -71,8 +72,9 @@ class MarkovChain {
   }
 
   next(context) {
-    //TODO: Build me
-    return context;
+    this.current = this.current.next();
+    const newContext = this.current.getAction()(context);
+    return newContext;
   }
 
 }
@@ -91,9 +93,7 @@ class MarkovNode {
 
   next() {
     const prob = _.random(0, 99);
-    console.log('looking for a match with ' + prob);
     const link = _.find(this.links, link => link.match(prob));
-    console.log(`found ${link} as match`);
     if(link){
       return link.target();
     }
@@ -123,9 +123,7 @@ class MarkovLink {
   target(){
     return this.targetNode;
   }
-
 }
-
 
 module.exports = {
   create
