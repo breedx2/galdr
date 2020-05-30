@@ -9,8 +9,6 @@ const DEFAULT_MAX_LINKS = 5;
 const DEFAULT_ALLOW_SELF = true;
 
 //TODO:
-// * min/max number of nodes
-// * min/max number of links
 // * allow/exclude self?
 // * library of actions to choose from
 function create(options = {}) {
