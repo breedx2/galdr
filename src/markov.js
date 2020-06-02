@@ -54,11 +54,7 @@ function makeRanges(num) {
 }
 
 function makeTempNode(i, options) {
-  //TODO: Pick from a real library of actions
-  const action = (context) => {
-    console.log(`Action ${i} exec`);
-    return { last: i };
-  };
+  const action = options.actionsFactory.pickRandom();
   return new MarkovNode(action);
 }
 
@@ -72,7 +68,24 @@ class MarkovChain {
   next(context) {
     this.current = this.current.next();
     const newContext = this.current.getAction()(context);
-    return newContext;
+    context.oid = (context.oid || 0) + 1
+    return this._wrapBounds(newContext);
+  }
+
+  _wrapBounds(ctx){
+    if(ctx.x > ctx.maxX){
+      ctx.x = 0;
+    }
+    if(ctx.x < 0){
+      ctx.x = ctx.maxX;
+    }
+    if(ctx.y > ctx.maxY){
+      ctx.y = 0;
+    }
+    if(ctx.y < 0){
+      ctx.y = ctx.maxY;
+    }
+    return ctx;
   }
 
 }
