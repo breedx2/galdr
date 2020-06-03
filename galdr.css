@@ -4,3 +4,7 @@ body {
   margin: 0;
   background: white;
 }
+
+div#chain {
+  display: none;
+}

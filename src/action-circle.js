@@ -51,7 +51,7 @@ class CircleAction {
 
   static random(){
     //TODO: Might be great if these all took strategies and not just picked their own bounds/distributions
-    const radius = _.random(2, 50); //DERP
+    const radius = _.random(2, 35); //DERP
     const startAngle = _.random(0,Math.PI*2*1000000)/1000000;
     const finishAngle = _.random(0,Math.PI*2*1000000)/1000000;
     const strokeWidth = _.random(1, 10);

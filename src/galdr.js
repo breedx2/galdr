@@ -3,17 +3,19 @@
 import { SVG } from '@svgdotjs/svg.js';
 import { ActionsFactory } from './actions-factory';
 const _ = require('lodash');
+import { setup as setupKeys } from './keys';
 
 // Entrypoint for app
 
 const markov = require('./markov');
-import { plot as markov_diagram } from './markov-diagram';
 
 const chain = markov.create({
   maxNodes: 20,
   actionsFactory: ActionsFactory
 });
-// markov_diagram(chain);
+setupKeys({
+  chain: () => chain
+});
 
 
 const svg = SVG().size(window.innerWidth, window.innerHeight)
@@ -33,4 +35,4 @@ _.range(0, len).forEach(_ => {
   ctx = chain.next(ctx);
 });
 
-svg.addTo('body');
+svg.addTo('#out');

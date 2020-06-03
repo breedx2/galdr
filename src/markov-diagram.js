@@ -2,20 +2,24 @@
 
 import { SVG } from '@svgdotjs/svg.js';
 
-const RADIUS = 60;
-const SPACING = 140;
+let RADIUS = 30;
+// const SPACING = 140;
 
 // Renders just the metadata about the chain, doesn't execute the chain iteself
 function plot(chain){
   console.log(chain);
 
-  const svg = SVG().addTo('body').size(window.innerWidth, window.innerHeight);
+  //TODO: Globals suck
+  RADIUS = (window.innerWidth / chain.nodes.length)/3;
+
+  const svg = SVG().addTo('div#chain').size(window.innerWidth, window.innerHeight);
   chain.nodes.forEach(node => {
-    const circle = svg.circle(RADIUS)
+    const circle = svg.circle(2*RADIUS)
               .attr({ fill: '#eeeeee'})
               .stroke({width: 2, color: '#ff000044'});
     const x = _xpos(chain, node);
-    circle.x(x).y(window.innerHeight/2);
+    console.log(`x is ${x}`)
+    circle.attr({ cx: x, cy: window.innerHeight/2 });
     node.links.forEach(link => {
       _drawLink(chain, svg, node, link);
     });
@@ -23,13 +27,14 @@ function plot(chain){
 }
 
 function _xpos(chain, node){
-  return SPACING + (SPACING*_index(chain, node));
+  const spacing = _spacing(chain);
+  console.log(`spacing = ${spacing}`)
+  return RADIUS + RADIUS/2 + (spacing * _index(chain, node));
 }
 
-function _xcenter(chain, node){
-  return _xpos(chain, node) + RADIUS/2;
+function _spacing(chain){
+  return window.innerWidth / (chain.nodes.length);// * chain.nodes.length);
 }
-
 
 function _drawLink(chain, svg, node, link){
   const thisIndex = _index(chain, node);
@@ -37,9 +42,9 @@ function _drawLink(chain, svg, node, link){
   const dxIndex = (thisIndex - targetIndex);
   const ysign = dxIndex > 0 ? 1 : -1;
 
-  const tx = _xcenter(chain, link.targetNode);
-  const x = _xcenter(chain, node);
-  const y = window.innerHeight/2 + (ysign*RADIUS/2) + RADIUS/2;
+  const tx = _xpos(chain, link.targetNode);
+  const x = _xpos(chain, node);
+  const y = window.innerHeight/2 + (ysign*RADIUS);
   const cy = window.innerHeight/2 + (ysign*(50+(20*dxIndex)));
   const s = { x: x, y: y };
   const e = { x: tx, y: y };
