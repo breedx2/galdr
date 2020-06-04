@@ -55,7 +55,8 @@ class CircleAction {
     const startAngle = _.random(0,Math.PI*2*1000000)/1000000;
     const finishAngle = _.random(0,Math.PI*2*1000000)/1000000;
     const strokeWidth = _.random(1, 10);
-    const opacity = _.random(1, 1000000)/1000000;
+    const opacity = _.random(50000, 1000000)/1000000;
+    console.log(`fuckin opacity: ${opacity}`)
 
     const options = {
       radius: radius,

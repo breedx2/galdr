@@ -42,7 +42,7 @@ class LineAction {
     const length = _.random(2, 50); //DERP
     const angle = _.random(0,Math.PI*2*1000000)/1000000;
     const strokeWidth = _.random(1, 10);
-    const opacity = _.random(1, 1000000)/1000000;
+    const opacity = _.random(50000, 1000000)/1000000;
     const lineCap = _.random(0,100) > 50 ? 'butt' : 'round';
     const finishAtPercentageAlongLine = _.random(1, 1000000)/1000000;
 
