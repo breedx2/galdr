@@ -19,6 +19,7 @@ setupKeys({
 
 
 const svg = SVG().size(window.innerWidth, window.innerHeight)
+svg.attr({id: 'drawing'});
 
 let ctx = {
   x: window.innerWidth/2,
@@ -34,5 +35,13 @@ const len = _.random(0, 2500) + 2500;
 _.range(0, len).forEach(_ => {
   ctx = chain.next(ctx);
 });
+
+// This continuously draws while keeping the svg the same length.
+// interesting but not entirely useful here.
+// setInterval(() => {
+//   const svg = document.querySelector('svg#drawing')
+//   svg.removeChild(svg.children[0]);
+//   ctx = chain.next(ctx);
+// }, 50);
 
 svg.addTo('#out');
