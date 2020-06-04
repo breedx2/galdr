@@ -59,7 +59,7 @@ class Curve1Action {
     const angle = _.random(0,Math.PI*2*1000000)/1000000;
     const controlAngle = _.random(0,Math.PI*2*1000000)/1000000;
     const controlPercent = _.random(1, 1000000)/1000000;
-    const strokeWidth = _.random(1, 10);
+    const strokeWidth = _.random(1, 7);
     const opacity = _.random(50000, 1000000)/1000000;
     const lineCap = _.random(0,100) > 50 ? 'butt' : 'round';
 

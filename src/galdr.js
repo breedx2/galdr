@@ -10,7 +10,7 @@ import { setup as setupKeys } from './keys';
 const markov = require('./markov');
 
 const chain = markov.create({
-  maxNodes: 20,
+  maxNodes: 50,
   actionsFactory: ActionsFactory
 });
 setupKeys({
