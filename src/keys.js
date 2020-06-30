@@ -14,6 +14,9 @@ function handleKey(config, event) {
       toggle('div#chain');
       toggle('div#out');
     }
+    else if(event.key == 'a'){ // another from same chain in current state
+      config.again();
+    }
 }
 
 function toggle(sel){
