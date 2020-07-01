@@ -9,24 +9,41 @@ import { setup as setupKeys } from './keys';
 
 const markov = require('./markov');
 
-const chain = markov.create({
-  maxNodes: 50,
-  actionsFactory: ActionsFactory
-});
+
+let chain = createNewAndDraw();
 
 setupKeys({
   chain: () => chain,
   again: () => {
-    document.getElementById('out').innerHTML = '';
+    removeCurrent();
     drawAndAdd(chain);
+  },
+  new: () => {
+    removeCurrent();
+    chain = createNewAndDraw();
   }
 });
 
-drawAndAdd(chain);
+function createNewAndDraw(){
+  const chain = markov.create({
+    maxNodes: 50,
+    actionsFactory: ActionsFactory
+  });
+
+  drawAndAdd(chain);
+  return chain;
+}
 
 function drawAndAdd(chain){
   const svg = draw(chain);
   svg.addTo('#out');
+}
+
+function removeCurrent(){
+  document.getElementById('out').innerHTML = '';
+  console.log(document.getElementById('chain'));
+  document.getElementById('chain').innerHTML = '';
+
 }
 
 function draw(chain){

@@ -9,13 +9,16 @@ function setup(config){
 function handleKey(config, event) {
     // console.log('saw key: ' + event);
     if(event.key === 'd'){  //show diagram
-      document.querySelector('div#chain').innerHtml = '';
+      document.getElementById('chain').innerHTML = '';
       markov_diagram(config.chain());
       toggle('div#chain');
       toggle('div#out');
     }
     else if(event.key == 'a'){ // another from same chain in current state
       config.again();
+    }
+    else if(event.key == 'n'){
+      config.new(); //make a new chain
     }
 }
 
