@@ -27,10 +27,8 @@ class Curve1Action {
     //debuggery
     this._showStructure(context.svg, [x,y], [cx,cy], [ex,ey]);
 
-
     context.svg.path(`M ${x} ${y} Q ${cx}, ${cy} ${ex} ${ey}`)
       .attr({fill: 'none'})
-      .stroke({width: 2, color: '#666666'})
       .attr({'stroke-opacity': this.opacity})
       .attr({'stroke-linecap': this.lineCap})
       .stroke({width: this.strokeWidth, color: this.color});

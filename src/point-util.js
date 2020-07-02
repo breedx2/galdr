@@ -7,6 +7,12 @@ function pointAtAngle(sx, sy, dist, angle){
   ]
 }
 
+function randFloat(min, max){
+  const fac = 1000000000.0;
+  return _.random(min * fac, max * fac) / fac;
+}
+
 module.exports = {
-  pointAtAngle
+  pointAtAngle,
+  randFloat
 }

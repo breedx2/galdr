@@ -4,11 +4,13 @@ const _ = require('lodash');
 import { LineAction } from './action-line';
 import { CircleAction } from './action-circle';
 import { Curve1Action } from './action-curve1';
+import { Curve2Action } from './action-curve2';
 
 const _actions = [
   LineAction,
   CircleAction,
-  Curve1Action
+  Curve1Action,
+  Curve2Action
 ];
 
 const factory = {
