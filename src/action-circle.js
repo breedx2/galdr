@@ -54,7 +54,7 @@ class CircleAction {
     const radius = _.random(2, 35); //DERP
     const startAngle = _.random(0,Math.PI*2*1000000)/1000000;
     const finishAngle = _.random(0,Math.PI*2*1000000)/1000000;
-    const strokeWidth = _.random(1, 7);
+    const strokeWidth = _.random(1, 4);
     const opacity = _.random(50000, 1000000)/1000000;
 
     const options = {

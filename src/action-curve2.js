@@ -90,7 +90,7 @@ class Curve2Action {
     const dfac = (1.0-c3Percent); // Just a weird guess for sure! Improve me!
     const c3Angle = angle + side2 * (pu.randFloat(dfac*mindAngle, dfac*maxdAngle));
 
-    const strokeWidth = _.random(1, 7);
+    const strokeWidth = _.random(1, 4);
     const opacity = _.random(50000, 1000000)/1000000;
     const lineCap = _.random(0,100) > 50 ? 'butt' : 'round';
 
