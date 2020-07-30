@@ -18,7 +18,7 @@ npm run build
 ```
 (that will run webpack and just get the dist dir prepared)
 
-To run a local dev server:
+To run a local development server:
 
 ```
 npm run dev
