@@ -14,15 +14,42 @@ let chain = createNewAndDraw();
 
 setupKeys({
   chain: () => chain,
-  again: () => {
-    removeCurrent();
-    drawAndAdd(chain);
-  },
-  new: () => {
-    removeCurrent();
-    chain = createNewAndDraw();
-  }
+  again: again,
+  new: newChain,
+  toggleTimer: toggleTimer
 });
+
+let timerCt = 0;
+let timer;
+
+if(!window.location.href.startsWith('file://')){
+  toggleTimer();
+}
+
+function toggleTimer() {
+  if(timer){
+    clearInterval(timer);
+    timer = null;
+  }
+  else {
+    timer = setInterval(() => {
+      if(++timerCt % 5 == 0){
+        return newChain();
+      }
+      again();
+    }, 1500);
+  }
+}
+
+function newChain(){
+  removeCurrent();
+  chain = createNewAndDraw();
+}
+
+function again(){
+  removeCurrent();
+  drawAndAdd(chain);
+}
 
 function createNewAndDraw(){
   const chain = markov.create({
