@@ -24,9 +24,7 @@ class BlerbAction {
   }
 
   action(context) {
-    // const points = getCirclePoints(this.numPoints, this.middle, this.radius, false);
-    // const curves = this._buildCurves(points);
-    const curves = this._buildCurves(context.x, context.y, context.svg);
+    const curves = this._buildCurves(context.x, context.y);
     context.svg.path(curves)
                 .attr({fill: 'none'})
                 .attr({'stroke-opacity': this.opacity})
@@ -47,7 +45,7 @@ class BlerbAction {
     return context;
   }
 
-  _buildCurves(cx, cy, delme){
+  _buildCurves(cx, cy){
 
     const vec = _.flatten(_.zip(this.circleVectors, this.controlVectors));
     const points = vec.map(v => du.pointAtAngle(cx, cy, v.r, v.a));
@@ -57,6 +55,7 @@ class BlerbAction {
     const combined = bezierSpline.combinePoints(points, controlPoints);
     const segments = bezierSpline.getSegments(combined);
 
+    // credit given to https://github.com/freder/bezier-spline/issues/1
     const thePathArray = new PathArray([
         ['M', ...segments[0][0]],
         ...segments.slice(1).map(segment => ([
@@ -71,8 +70,8 @@ class BlerbAction {
   }
 
   static random(){
-    const numAngles = 6;
-    const baseRadius = 250;//_.random(10, 150); //tbd
+    const numAngles = _.random(4, 8);
+    const baseRadius = _.random(10, 66); //tbd
     const angles = du.getCircleAngles(numAngles, false);
     const circleVectors = angles.map(a => ({a: a, r: baseRadius}));
     const controlVectors = BlerbAction._controlVectors(angles, baseRadius);
