@@ -20,6 +20,9 @@ function handleKey(config, event) {
     else if(event.key == 'n'){
       config.new(); //make a new chain
     }
+    else if(event.key == 'i'){
+      config.toggleDark();
+    }
     else if(event.key == 't'){
       console.log("toggle timer");
       config.toggleTimer();

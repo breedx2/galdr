@@ -4,19 +4,21 @@ import { SVG } from '@svgdotjs/svg.js';
 import { ActionsFactory } from './actions-factory';
 const _ = require('lodash');
 import { setup as setupKeys } from './keys';
+const du = require('./draw-util');
 
 // Entrypoint for app
 
 const markov = require('./markov');
 
-
+let dark = false;
 let chain = createNewAndDraw();
 
 setupKeys({
   chain: () => chain,
   again: again,
   new: newChain,
-  toggleTimer: toggleTimer
+  toggleTimer: toggleTimer,
+  toggleDark: toggleDark
 });
 
 let timerCt = 0;
@@ -82,6 +84,7 @@ function draw(chain){
     y: window.innerHeight/2,
     maxX: window.innerWidth,
     maxY: window.innerHeight,
+    dark: dark,
     svg: svg
   };
 
@@ -96,10 +99,12 @@ function draw(chain){
   return svg;
 }
 
-// This continuously draws while keeping the svg the same length.
-// interesting but not entirely useful here.
-// setInterval(() => {
-//   const svg = document.querySelector('svg#drawing')
-//   svg.removeChild(svg.children[0]);
-//   ctx = chain.next(ctx);
-// }, 50);
+function toggleDark(){
+  dark = !dark;
+  document.body.style.backgroundColor =
+    document.body.style.backgroundColor === 'black' ? 'white' : 'black';
+  const svg = document.querySelector('svg#drawing');
+  svg.childNodes.forEach(child => {
+    child.setAttribute('stroke', du.invertColor(child.getAttribute('stroke')));
+  });
+}

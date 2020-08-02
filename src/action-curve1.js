@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const pu = require('./point-util');
+const du = require('./draw-util');
 
 // Single quadratic control point
 class Curve1Action {
@@ -22,7 +22,7 @@ class Curve1Action {
   action(context){
     const [x,y] = [context.x, context.y];
     const [cx,cy] = this._controlPoint(context);
-    const [ex,ey] = pu.pointAtAngle(x, y, this.length, this.angle);
+    const [ex,ey] = du.pointAtAngle(x, y, this.length, this.angle);
 
     //debuggery
     this._showStructure(context.svg, [x,y], [cx,cy], [ex,ey]);
@@ -31,7 +31,7 @@ class Curve1Action {
       .attr({fill: 'none'})
       .attr({'stroke-opacity': this.opacity})
       .attr({'stroke-linecap': this.lineCap})
-      .stroke({width: this.strokeWidth, color: this.color});
+      .stroke({width: this.strokeWidth, color: context.dark ? du.invertColor(this.color) : this.color});
 
     [context.x, context.y] = [ex, ey];
     return context;
@@ -39,7 +39,7 @@ class Curve1Action {
 
   _controlPoint(context){
     const len = this.length * this.controlPercent;
-    return pu.pointAtAngle(context.x, context.y, len, this.controlAngle);
+    return du.pointAtAngle(context.x, context.y, len, this.controlAngle);
   }
 
   _showStructure(svg, s, c, e){

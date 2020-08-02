@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const pu = require('./point-util');
+const du = require('./draw-util');
 
 // 5 point bezier with 3 control points (like an S curve)
 // start, mid, end all in a straight line
@@ -29,11 +29,11 @@ class Curve2Action {
 
   action(context){
     const [x,y] = [context.x, context.y];
-    const [ex,ey] = pu.pointAtAngle(x, y, this.length, this.angle);
-    const [mx,my] = pu.pointAtAngle(x, y, this.length * this.midPercent, this.angle);
-    const [c1x,c1y] = pu.pointAtAngle(x, y, this.length * this.c1Percent, this.c1Angle);
-    const [c2x,c2y] = pu.pointAtAngle(x, y, this.length * this.c2Percent, this.c2Angle);
-    const [c3x,c3y] = pu.pointAtAngle(x, y, this.length * this.c3Percent, this.c3Angle);
+    const [ex,ey] = du.pointAtAngle(x, y, this.length, this.angle);
+    const [mx,my] = du.pointAtAngle(x, y, this.length * this.midPercent, this.angle);
+    const [c1x,c1y] = du.pointAtAngle(x, y, this.length * this.c1Percent, this.c1Angle);
+    const [c2x,c2y] = du.pointAtAngle(x, y, this.length * this.c2Percent, this.c2Angle);
+    const [c3x,c3y] = du.pointAtAngle(x, y, this.length * this.c3Percent, this.c3Angle);
 
     //debuggery
     this._showStructure(context.svg, [x,y], [mx, my], [c1x, c1y], [c2x, c2y], [c3x, c3y], [ex, ey]);
@@ -42,7 +42,7 @@ class Curve2Action {
       .attr({fill: 'none'})
       .attr({'stroke-opacity': this.opacity})
       .attr({'stroke-linecap': this.lineCap})
-      .stroke({width: this.strokeWidth, color: this.color});
+      .stroke({width: this.strokeWidth, color: context.dark ? du.invertColor(this.color) : this.color});
 
     [context.x, context.y] = [ex, ey];
     return context;
@@ -71,8 +71,8 @@ class Curve2Action {
     const angle = _.random(0,Math.PI*2*1000000)/1000000;
 
     // between 0.4 and 0.6
-    const midPercent = pu.randFloat(0.4, 0.6);
-    const lowerControls = [ pu.randFloat(0.1, midPercent), pu.randFloat(0.1, midPercent)];
+    const midPercent = du.randFloat(0.4, 0.6);
+    const lowerControls = [ du.randFloat(0.1, midPercent), du.randFloat(0.1, midPercent)];
     const c1Percent = _.min(lowerControls);
     const c2Percent = _.max(lowerControls);
 
@@ -81,14 +81,14 @@ class Curve2Action {
 
     const mindAngle = Math.PI/16.0;
     const maxdAngle = 3.0 * Math.PI/16.0;
-    const c1Angle = angle + side1 * (pu.randFloat(mindAngle, maxdAngle));
-    const c2Angle = angle + side1 * (pu.randFloat(mindAngle, maxdAngle));
+    const c1Angle = angle + side1 * (du.randFloat(mindAngle, maxdAngle));
+    const c2Angle = angle + side1 * (du.randFloat(mindAngle, maxdAngle));
 
     const c3MinPerc = midPercent + (midPercent - c2Percent);
-    const c3Percent = pu.randFloat(c3MinPerc, 1.0);
+    const c3Percent = du.randFloat(c3MinPerc, 1.0);
 
     const dfac = (1.0-c3Percent); // Just a weird guess for sure! Improve me!
-    const c3Angle = angle + side2 * (pu.randFloat(dfac*mindAngle, dfac*maxdAngle));
+    const c3Angle = angle + side2 * (du.randFloat(dfac*mindAngle, dfac*maxdAngle));
 
     const strokeWidth = _.random(1, 4);
     const opacity = _.random(50000, 1000000)/1000000;

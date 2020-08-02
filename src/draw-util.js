@@ -12,7 +12,14 @@ function randFloat(min, max){
   return _.random(min * fac, max * fac) / fac;
 }
 
+function invertColor(color) {
+  const numColor = parseInt(color.slice(1), 16);
+  const invColor = 0xFFFFFF ^ numColor;
+  return "#" + ("000000" + invColor.toString(16)).slice(-6);
+}
+
 module.exports = {
   pointAtAngle,
-  randFloat
+  randFloat,
+  invertColor
 }

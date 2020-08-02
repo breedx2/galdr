@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const pu = require('./point-util');
+const du = require('./draw-util');
 
 class CircleAction {
 
@@ -23,13 +23,13 @@ class CircleAction {
 
   action(context){
     const [x,y] = [context.x, context.y];
-    const [cx,cy] = pu.pointAtAngle(x, y, this.radius, this.startAngle);
-    const [ex, ey] = pu.pointAtAngle(cx, cy, this.radius, this.finishAngle)
+    const [cx,cy] = du.pointAtAngle(x, y, this.radius, this.startAngle);
+    const [ex, ey] = du.pointAtAngle(cx, cy, this.radius, this.finishAngle)
     context.svg.circle(this.radius * 2)
       .attr({ cx: cx, cy: cy})
       .attr({fill: this.fill})
       .attr({'stroke-opacity': this.opacity})
-      .stroke({width: this.strokeWidth, color: this.color});
+      .stroke({width: this.strokeWidth, color: context.dark ? du.invertColor(this.color) : this.color});
     [context.x, context.y] = [ex, ey];
 
     this._showStructure(context.svg, [x,y], [cx,cy], [ex,ey]);

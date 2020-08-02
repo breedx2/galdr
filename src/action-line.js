@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const pu = require('./point-util');
+const du = require('./draw-util');
 
 class LineAction {
 
@@ -23,7 +23,7 @@ class LineAction {
       .attr({fill: 'none'})
       .attr({'stroke-opacity': this.opacity})
       .attr({'stroke-linecap': this.lineCap})
-      .stroke({width: this.strokeWidth, color: this.color});
+      .stroke({width: this.strokeWidth, color: context.dark ? du.invertColor(this.color) : this.color});
     [context.x, context.y] = this._finishXY(context)
     return context;
   }
@@ -34,7 +34,7 @@ class LineAction {
   }
 
   _dest(x, y, len = this.length){
-    return pu.pointAtAngle(x, y, len, this.angle);
+    return du.pointAtAngle(x, y, len, this.angle);
   }
 
   static random(){
