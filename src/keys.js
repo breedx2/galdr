@@ -23,6 +23,9 @@ function handleKey(config, event) {
     else if(event.key == 'i'){
       config.toggleDark();
     }
+    else if(event.key == 's'){
+      config.saveSvg();
+    }
     else if(event.key == 't'){
       console.log("toggle timer");
       config.toggleTimer();

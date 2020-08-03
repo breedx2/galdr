@@ -5,6 +5,7 @@ import { ActionsFactory } from './actions-factory';
 const _ = require('lodash');
 import { setup as setupKeys } from './keys';
 const du = require('./draw-util');
+const saveSvg = require('./savesvg');
 
 // Entrypoint for app
 
@@ -18,7 +19,8 @@ setupKeys({
   again: again,
   new: newChain,
   toggleTimer: toggleTimer,
-  toggleDark: toggleDark
+  toggleDark: toggleDark,
+  saveSvg: saveSvg
 });
 
 let timerCt = 0;
