@@ -23,3 +23,14 @@ To run a local development server:
 ```
 npm run dev
 ```
+
+## keys
+
+when running, use [these keys](https://github.com/breedx2/galdr/blob/master/src/keys.js):
+
+* `a` - draw again with the same chain
+* `d` - show markov chain diagram
+* `i` - invert (toggle dark mode)
+* `n` - make new chain and draw
+* `s` - save current to svg file
+* `t` - toggle auto timer on/off
