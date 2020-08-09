@@ -36,18 +36,21 @@ class LatticeAction {
 
   _showStructure(context){
     const svg = context.svg;
-    svg.circle(5)
-        .attr({cx: context.x, cy: context.y, fill: 'none', stroke: 'red', 'stroke-opacity': 0.5});
-    const x = context.x - (this.mx == -1 ? this.width : 0);
-    const y = context.y - (this.my == -1 ? this.height : 0);
+    const x = context.x - (this.mx === -1 ? this.width : 0);
+    const y = context.y - (this.my === -1 ? this.height : 0);
     svg.rect(this.width, this.height)
         .attr({x: x, y: y, fill: 'none', stroke: '#000000', 'stroke-opacity': 0.2})
-
+    svg.circle(5)
+        .attr({cx: context.x, cy: context.y, fill: 'none', stroke: 'green', 'stroke-opacity': 0.5});
+    svg.circle(5)
+        .attr({cx: x + (this.mx === 1 ? this.width : 0),
+               cy: y + (this.my === 1 ? this.height : 0),
+               fill: 'none', stroke: 'red', 'stroke-opacity': 0.5});
   }
 
   static random(){
-    const width = 200;//_.random(15, 100);
-    const height = 200;//_.random(15, 100);
+    const width = _.random(25, 200);
+    const height = _.random(25, 200);
 
     let cx = _.random(0,1) === 0 ? 0 : width;
     let cy = _.random(0,1) === 0 ? 0 : height;
@@ -68,22 +71,18 @@ class LatticeAction {
       cx = cx - (mx === -1 ? dx : 0);
       cy = cy - (my === -1 ? dy : 0);
 
-      console.log(`1: cx = ${cx} cy = ${cy} dx = ${dx} dy = ${dy} wat ${mx === -1}`);
-
       const rect = group.rect(dx, dy);
       rect.attr({ x: cx, y: cy });
       rect.attr({ fill: 'rgb(0,0,0)', opacity: opacity});
 
       cx += (mx === 1 ? dx : 0);
       cy += (my === 1 ? dy : 0);
-      console.log(`2: cx = ${cx} cy = ${cy} dx = ${dx} dy = ${dy}`);
 
       if(cx <= 0 || cx >= width || cy <= 0 || cy >= height){
         break;
       }
     }
 
-    console.log(`e: cx = ${cx} cy = ${cy}`);
     group.children().forEach(child => {
       const x = mx === -1 ? -1 * cx : 0;
       const y = my === -1 ? -1 * cy : 0;
@@ -97,8 +96,6 @@ class LatticeAction {
       height: my === 1 ? cy : height - cy,
       mx: mx,
       my: my,
-      // opacity: opacity,
-      // color: 'rgb(0,0,0)',
       showStructure: true
     });
     return ctx => inst.action(ctx);
