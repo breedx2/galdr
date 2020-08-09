@@ -38,7 +38,8 @@ function toggleTimer() {
   else {
     timer = setInterval(() => {
       if(++timerCt % 5 == 0){
-        return newChain();
+        newChain();
+        return (_.random(0, 100) < 20) && toggleDark();
       }
       again();
     }, 1500);
