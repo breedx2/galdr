@@ -106,7 +106,23 @@ function toggleDark(){
   document.body.style.backgroundColor =
     document.body.style.backgroundColor === 'black' ? 'white' : 'black';
   const svg = document.querySelector('svg#drawing');
-  svg.childNodes.forEach(child => {
-    child.setAttribute('stroke', du.invertColor(child.getAttribute('stroke')));
-  });
+  invertRecursive(svg);
+}
+
+function invertRecursive(domNode){
+  domNode.childNodes.forEach(child => {
+    if(child.tagName.toLowerCase() === 'g'){
+      return invertRecursive(child);
+    }
+    try {
+      const stroke = child.getAttribute('stroke');
+      const fill = child.getAttribute('fill');
+      stroke && child.setAttribute('stroke', du.invertColor(stroke));
+      fill && child.setAttribute('fill', du.invertColor(fill));
+    }
+    catch(e) {
+      console.log("MUCK: " + child);
+    }
+
+  })
 }

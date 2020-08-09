@@ -12,7 +12,9 @@ function randFloat(min, max){
   return _.random(min * fac, max * fac) / fac;
 }
 
+//NOTE: Does NOT support rgb(x,y,z) style
 function invertColor(color) {
+  if(color == 'none') return 'none';
   if(color === 'black') return 'white';
   if(color === 'white') return 'black';
   const numColor = parseInt(color.slice(1), 16);
@@ -39,14 +41,6 @@ function svgCircle(svg, middle, radius, color, alpha = 1, strokeWidth = 1){
             .attr({ stroke: color })
             .attr({ width: strokeWidth })
             .attr({ opacity: alpha });
-  // return svg.append("circle")
-  //           .attr("cx", middle.x)
-  //           .attr("cy", middle.y)
-  //           .attr("r", radius)
-  //           .style('fill', 'none')
-  //           .style('stroke', color)
-  //           .style('opacity', alpha == null ? 1 : alpha)
-  //           .style('stroke-width', strokeWidth);
 }
 
 module.exports = {

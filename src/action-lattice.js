@@ -56,7 +56,6 @@ class LatticeAction {
     let cy = _.random(0,1) === 0 ? 0 : height;
     const mx = cx == 0 ? 1 : -1;
     const my = cy == 0 ? 1 : -1;
-    console.log(`mx = ${mx} my = ${my}`)
 
     // could consider having each rect piece have its own opacity
     const opacity = _.random(50000, 1000000)/1000000;
@@ -73,7 +72,7 @@ class LatticeAction {
 
       const rect = group.rect(dx, dy);
       rect.attr({ x: cx, y: cy });
-      rect.attr({ fill: 'rgb(0,0,0)', opacity: opacity});
+      rect.attr({ fill: '#000000', opacity: opacity});
 
       cx += (mx === 1 ? dx : 0);
       cy += (my === 1 ? dy : 0);
