@@ -84,7 +84,7 @@ class BlerbAction {
         controlVectors: controlVectors,
         strokeWidth: strokeWidth,
         opacity: opacity,
-        color: 'rgb(0,0,0)',
+        color: '#000000',
         showStructure: false,
     };
     const obj = new BlerbAction(options);

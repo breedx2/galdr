@@ -30,7 +30,9 @@ class LatticeAction {
       }
 
       //TODO: Consider a rotation angle and don't always exit the same way
-      [context.x, context.y] = [dx, dy];
+      const ex = dx + (this.mx === 1 ? this.width : 0);
+      const ey = dy + (this.my === 1 ? this.height : 0);
+      [context.x, context.y] = [ex, ey];
       return context;
   }
 
