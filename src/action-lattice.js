@@ -96,7 +96,7 @@ class LatticeAction {
       height: my === 1 ? cy : height - cy,
       mx: mx,
       my: my,
-      showStructure: true
+      // showStructure: true
     });
     return ctx => inst.action(ctx);
   }
