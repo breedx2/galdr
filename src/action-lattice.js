@@ -1,6 +1,7 @@
 'use strict';
 const _ = require('lodash');
 import { SVG } from '@svgdotjs/svg.js';
+const du = require('./draw-util');
 
 // Draws a little grid framework that enters on the lower left
 // and exists on the upper right.
@@ -37,8 +38,21 @@ class LatticeAction {
         this._showStructure(context);
       }
 
+      if(context.dark){
+        this._invert(group);
+      }
+
       [context.x, context.y] = [ex1, ey1];
       return context;
+  }
+
+  _invert(group){
+    group.children().forEach(child => {
+      const stroke = child.attr('stroke');
+      const fill = child.attr('fill');
+      stroke && child.attr('stroke', du.invertColor(stroke));
+      fill && child.attr('fill', du.invertColor(fill));
+    });
   }
 
   _showStructure(context){

@@ -125,5 +125,5 @@ function invertRecursive(domNode){
       console.log("MUCK: " + child);
     }
 
-  })
+  });
 }
