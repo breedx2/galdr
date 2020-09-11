@@ -23,7 +23,7 @@ class BlerbAction {
     // TODO: MAYBE just save options?
   }
 
-  action(context) {
+  execute(context) {
     const curves = this._buildCurves(context.x, context.y);
     context.svg.path(curves)
                 .attr({fill: 'none'})
@@ -87,8 +87,7 @@ class BlerbAction {
         color: '#000000',
         showStructure: false,
     };
-    const obj = new BlerbAction(options);
-    return ctx => obj.action(ctx);
+    return new BlerbAction(options);
   }
 
   static _controlVectors(angles, baseRadius) {

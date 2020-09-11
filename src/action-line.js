@@ -16,7 +16,7 @@ class LineAction {
     // TODO: MAYBE just save options?
   }
 
-  action(context){
+  execute(context){
     const [x,y] = [context.x, context.y];
     const [tx,ty] = this._dest(x,y);
     context.svg.line(x, y, tx, ty)
@@ -56,8 +56,7 @@ class LineAction {
       lineCap: lineCap
       //TBD: others
     };
-    const inst = new LineAction(options);
-    return ctx => inst.action(ctx);
+    return new LineAction(options);
   }
 
 }

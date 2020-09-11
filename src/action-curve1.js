@@ -19,7 +19,7 @@ class Curve1Action {
     // TODO: MAYBE just save options?
   }
 
-  action(context){
+  execute(context){
     const [x,y] = [context.x, context.y];
     const [cx,cy] = this._controlPoint(context);
     const [ex,ey] = du.pointAtAngle(x, y, this.length, this.angle);
@@ -72,8 +72,7 @@ class Curve1Action {
       lineCap: lineCap
       //TBD: others
     };
-    const inst = new Curve1Action(options);
-    return ctx => inst.action(ctx);
+    return new Curve1Action(options);
   }
 
 }

@@ -19,7 +19,7 @@ class LatticeAction {
     this.showStructure = options.showStructure || false;
   }
 
-  action(context){
+  execute(context){
       const dx = context.x - (this.mx === -1 ? this.width : 0);
       const dy = context.y - (this.my === -1 ? this.height : 0);
 
@@ -167,7 +167,7 @@ class LatticeAction {
     const rotW = h * Math.sin(b);
     const rotH = h * Math.cos(b);
 
-    const inst = new LatticeAction({
+    return new LatticeAction({
       group: group,
       width: initialW,
       height: initialH,
@@ -178,7 +178,6 @@ class LatticeAction {
       rotDeg: rotDeg,
       // showStructure: true
     });
-    return ctx => inst.action(ctx);
   }
 }
 

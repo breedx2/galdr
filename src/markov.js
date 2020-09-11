@@ -67,7 +67,7 @@ class MarkovChain {
 
   next(context) {
     this.current = this.current.next();
-    const newContext = this.current.getAction()(context);
+    const newContext = this.current.getAction().execute(context);
     context.oid = (context.oid || 0) + 1
     return this._wrapBounds(newContext);
   }

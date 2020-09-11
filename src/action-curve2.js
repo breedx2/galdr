@@ -27,7 +27,7 @@ class Curve2Action {
     // TODO: MAYBE just save options?
   }
 
-  action(context){
+  execute(context){
     const [x,y] = [context.x, context.y];
     const [ex,ey] = du.pointAtAngle(x, y, this.length, this.angle);
     const [mx,my] = du.pointAtAngle(x, y, this.length * this.midPercent, this.angle);
@@ -113,10 +113,8 @@ class Curve2Action {
       // showStructure: true
       //TBD: others
     };
-    const inst = new Curve2Action(options);
-    return ctx => inst.action(ctx);
+    return new Curve2Action(options);
   }
-
 }
 
 

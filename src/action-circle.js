@@ -21,7 +21,7 @@ class CircleAction {
     // TODO: MAYBE just save options?
   }
 
-  action(context){
+  execute(context){
     const [x,y] = [context.x, context.y];
     const [cx,cy] = du.pointAtAngle(x, y, this.radius, this.startAngle);
     const [ex, ey] = du.pointAtAngle(cx, cy, this.radius, this.finishAngle)
@@ -67,8 +67,7 @@ class CircleAction {
       fill: 'none'  //TODO
       //TODO TBD: others
     };
-    const inst = new CircleAction(options);
-    return ctx => inst.action(ctx);
+    return new CircleAction(options);
   }
 
 }
