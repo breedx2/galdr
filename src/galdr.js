@@ -2,6 +2,7 @@
 
 import { SVG } from '@svgdotjs/svg.js';
 import { ActionsFactory } from './actions-factory';
+import { ChainHist } from './chain-hist';
 const _ = require('lodash');
 import { setup as setupKeys } from './keys';
 const du = require('./draw-util');
@@ -11,16 +12,19 @@ const saveSvg = require('./savesvg');
 
 const markov = require('./markov');
 
+const chains = new ChainHist();
 let dark = false;
-let chain = createNewAndDraw();
+chains.push(createNewAndDraw());
 
 setupKeys({
-  chain: () => chain,
+  chain: () => chains.current(),
   again: again,
   new: newChain,
   toggleTimer: toggleTimer,
   toggleDark: toggleDark,
-  saveSvg: saveSvg
+  saveSvg: saveSvg,
+  previous: previousChain,
+  next: nextChain,
 });
 
 let timerCt = 0;
@@ -48,12 +52,22 @@ function toggleTimer() {
 
 function newChain(){
   removeCurrent();
-  chain = createNewAndDraw();
+  chains.push(createNewAndDraw());
+}
+
+function previousChain(){
+  chains.prev();
+  again();
+}
+
+function nextChain(){
+  chains.next();
+  again();
 }
 
 function again(){
   removeCurrent();
-  drawAndAdd(chain);
+  drawAndAddToScreen(chains.current());
 }
 
 function createNewAndDraw(){
@@ -62,11 +76,11 @@ function createNewAndDraw(){
     actionsFactory: ActionsFactory
   });
 
-  drawAndAdd(chain);
+  drawAndAddToScreen(chain);
   return chain;
 }
 
-function drawAndAdd(chain){
+function drawAndAddToScreen(chain){
   const svg = draw(chain);
   svg.addTo('#out');
 }

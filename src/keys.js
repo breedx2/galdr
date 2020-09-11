@@ -7,7 +7,7 @@ function setup(config){
 }
 
 function handleKey(config, event) {
-    // console.log('saw key: ' + event);
+    // console.log('saw key: ' + event.key);
     if(event.key === 'd'){  //show diagram
       document.getElementById('chain').innerHTML = '';
       markov_diagram(config.chain());
@@ -29,6 +29,12 @@ function handleKey(config, event) {
     else if(event.key == 't'){
       console.log("toggle timer");
       config.toggleTimer();
+    }
+    else if(event.key == 'ArrowLeft'){
+      config.previous();
+    }
+    else if(event.key == 'ArrowRight'){
+      config.next();
     }
 }
 
