@@ -5,6 +5,33 @@ body {
   background: white;
 }
 
+div#container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+div#out {
+  display: inline-block;
+}
+
 div#chain {
   display: none;
+}
+
+div#serial {
+  width: 75%;
+  position: absolute;
+  left: 12.5%;
+  top: 10px;
+  display: none;
+  padding: 15px;
+  font-family: sans-serif;
+  font-size: 0.5em;
+  border: solid silver 2px;
+  border-radius: 7px;
+  z-index: 12;
+  text-align: left;
+  background: white;
 }

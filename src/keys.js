@@ -30,6 +30,10 @@ function handleKey(config, event) {
       console.log("toggle timer");
       config.toggleTimer();
     }
+    else if(event.key == 'j'){
+      toggle('div#serial');
+      config.showSerialized();
+    }
     else if(event.key == 'ArrowLeft'){
       config.previous();
     }

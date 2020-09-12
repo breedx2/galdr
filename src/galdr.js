@@ -3,6 +3,7 @@
 import { SVG } from '@svgdotjs/svg.js';
 import { ActionsFactory } from './actions-factory';
 import { ChainHist } from './chain-hist';
+import { toJson } from './marshal/marshal-chain';
 const _ = require('lodash');
 import { setup as setupKeys } from './keys';
 const du = require('./draw-util');
@@ -25,6 +26,7 @@ setupKeys({
   saveSvg: saveSvg,
   previous: previousChain,
   next: nextChain,
+  showSerialized: showSerialized
 });
 
 let timerCt = 0;
@@ -68,6 +70,11 @@ function nextChain(){
 function again(){
   removeCurrent();
   drawAndAddToScreen(chains.current());
+}
+
+function showSerialized(){
+  const json = toJson(chains.current());
+  document.getElementById('serial').innerHTML = json;
 }
 
 function createNewAndDraw(){
