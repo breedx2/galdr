@@ -16,6 +16,7 @@ class LatticeAction {
     this.rotDeg = options.rotDeg;
     this.rotW = options.rotW;
     this.rotH = options.rotH;
+    this.opacity = options.opacity;
     this.showStructure = options.showStructure || false;
   }
 
@@ -32,6 +33,7 @@ class LatticeAction {
       const dy4 = context.y - (this.my === -1 ? this.rotH : 0);
       group.rotate(this.rotDeg, rx, ry);
       group.translate(dx, dy);
+      group.attr('opacity', this.opacity);
       context.svg.add(group);
 
       if(this.showStructure) {
@@ -138,7 +140,8 @@ class LatticeAction {
 
       const rect = group.rect(dx, dy);
       rect.attr({ x: cx, y: cy });
-      rect.attr({ fill: '#000000', opacity: opacity});
+      // rect.attr({ fill: '#000000', opacity: opacity});
+      rect.attr({ fill: '#000000' });
 
       cx += (mx === 1 ? dx : 0);
       cy += (my === 1 ? dy : 0);
@@ -176,6 +179,7 @@ class LatticeAction {
       mx: mx,
       my: my,
       rotDeg: rotDeg,
+      opacity: opacity,
       // showStructure: true
     });
   }

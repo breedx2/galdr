@@ -1,15 +1,15 @@
 'use strict';
 
 function pack(a) {
-  const fill = a.group.children()[0].attr('fill');
-  const opacity = a.group.children()[0].attr('opacity');
+  // const fill = a.group.children()[0].attr('fill');
   const blocks = a.group.children().map(child => {
     return [child.attr('x'), child.attr('y'), child.attr('width'), child.attr('height')];
   });
   return [
-    fill,
-    opacity,
+    // fill,
+    a.opacity,
     blocks,
+    a.opacity,
     a.width,
     a.height,
     a.mx,
