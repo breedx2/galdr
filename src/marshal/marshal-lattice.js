@@ -8,8 +8,6 @@ function pack(a) {
   return [
     // fill,
     a.opacity,
-    blocks,
-    a.opacity,
     a.width,
     a.height,
     a.mx,
@@ -17,6 +15,7 @@ function pack(a) {
     a.rotDeg,
     a.rotW,
     a.rotH,
+    blocks,
   ];
 }
 
