@@ -21,7 +21,7 @@
   "dependencies": {
     "@freder/bezier-spline": "^0.2.4",
     "@svgdotjs/svg.js": "^3.0.16",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "terser-webpack-plugin": "^3.0.8"
   },
   "devDependencies": {
